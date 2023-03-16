@@ -22,31 +22,29 @@ enum tapdances {
   TAPDANCE_LENGTH
 };
 
-enum combos {
-  COMBO_LENGTH
-};
+
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _SYMBOL, _NUMBER, _NAVIGATION);
 }
 
 // begin tapdances
-#define KC_QESC     TD(TD_QESC)
-#define KC_SBKT     TD(TD_SBKT)
-#define KC_CBKT     TD(TD_CBKT)
-#define KC_PARN     TD(TD_PARN)
-#define KC_LTGT     TD(TD_LTGT)
-#define KC_ATAB     TD(TD_ATAB)
+#define KC_QESC     TD(TD_QESC) // Q, ESC
+#define KC_SBKT     TD(TD_SBKT) // [, ]
+#define KC_CBKT     TD(TD_CBKT) // {, }
+#define KC_PARN     TD(TD_PARN) // (, )
+#define KC_LTGT     TD(TD_LTGT) // <, >
 
-#define KC_GUIX     LGUI_T(KC_X)
-#define KC_ALTC     LALT_T(KC_C)
+// tap hold
+#define KC_GUIX     LGUI_T(KC_X) // X, GUI
+#define KC_ALTC     LALT_T(KC_C) // C, ALT
 
-// oneshots
-#define KC_OSFT   OSM(MOD_LSFT)
-#define KC_OALT   OSM(MOD_LALT)
+// oneshot mods
+#define KC_OSFT     OSM(MOD_LSFT)
+#define KC_OALT     OSM(MOD_LALT)
 
-// layer changing
-#define KC_OSYM   OSL(_SYMBOL)
-#define KC_ONUM   LT(_NUMBER, KC_BSPC)
+// layer change
+#define KC_OSYM     OSL(_SYMBOL) 
+#define KC_ONUM     LT(_NUMBER, KC_BSPC) // _NUMBER on hold, BACKSPACE on tap
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
@@ -65,14 +63,18 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_CBKT]   = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
     [TD_PARN]   = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, KC_RPRN),
     [TD_LTGT]   = ACTION_TAP_DANCE_DOUBLE(KC_LABK, KC_RABK),
-    [TD_ATAB]   = ACTION_TAP_DANCE_DOUBLE(KC_A, KC_TAB)
 };
 // end tapdances
 
+// start combos
+enum combos {
+  COMBO_LENGTH
+};
+
 uint16_t COMBO_LEN = COMBO_LENGTH;
-
+// const uint16_t PROGMEM combo_navigation[] = { TRIGGER_ONE, TRIGGER_TWO, COMBO_END };
 combo_t key_combos[] = {
-
+  // [COMBO_NAME] = COMBO(combo_name, RESULT)
 };
 
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
@@ -107,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NAVIGATION] = LAYOUT(
     KC_NO,      KC_F2,      KC_NO,      KC_NO,      KC_NO,            KC_NO,      KC_HOME,    KC_UP,      KC_END,     KC_BSPC,      \
     KC_TAB,     KC_NO,      KC_NO,      KC_NO,      KC_NO,            KC_NO,      KC_LEFT,    KC_DOWN,    KC_RIGHT,   KC_ENT,       \
-    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,            KC_NO,      KC_MPRV,    KC_MPLY,    KC_MNXT,    KC_DEL,       \
+    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,            KC_NO,      KC_MPRV,    KC_MPLY,    KC_MNXT,    KC_DEL,       p\
                             KC_LCTL,    KC_OSYM,    KC_OSFT,          KC_SPC,     KC_ONUM,    KC_ENT 
   )
 };
