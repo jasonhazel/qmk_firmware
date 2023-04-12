@@ -114,12 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-
 #ifdef OLED_ENABLE
-  oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_180;
-  }
-
   bool oled_task_user(void) {
     oled_set_cursor(0, 0);
     switch (get_highest_layer(layer_state)) {
@@ -136,26 +131,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         oled_write_P(PSTR("EXTRAS "), false);
         break;
     }
-    uint8_t modifiers = get_mods() | get_oneshot_mods();
-
-  // mods
-    oled_set_cursor(14, 0);
-    oled_write_P(PSTR("S"), (modifiers & MOD_MASK_SHIFT) || is_caps_word_on());
-
-    oled_set_cursor(16, 0);
-    oled_write_P(PSTR("C"), (modifiers & MOD_MASK_CTRL));
-
-    oled_set_cursor(18, 0);
-    oled_write_P(PSTR("A"), (modifiers & MOD_MASK_ALT));
-
-    oled_set_cursor(20, 0);
-    oled_write_P(PSTR("G"), (modifiers & MOD_MASK_GUI));
-
-    #ifdef WPM_ENABLE
-      oled_set_cursor(0, 7);
-      uint8_t n = get_current_wpm();
-      oled_write(get_u8_str(n, '0'), false);
-    #endif
 
     return true;
   }
